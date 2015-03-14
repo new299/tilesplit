@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+        <meta charset="utf-8" />
+ 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+ 
+        <link rel="stylesheet" href="leaflet.css" />
+</head>
+<body>
+
+          <div id="map" style="width: 100px; height: 100px; display: inline-block;"></div>
+
+        <script src="leaflet.js"></script>
+        <script>
+                document.getElementById('map').style.width  = window.innerWidth-20 + "px";
+                document.getElementById('map').style.height = window.innerHeight-20 + "px";
+ 
+                var map = L.map('map',{maxZoom: 5, minZoom:1, crs: L.CRS.Simple, continuousWorld: true}).setView([0,0], 1);
+
+                var southWest = map.unproject([0, 5248], map.getMaxZoom());
+                var northEast = map.unproject([4984, 0], map.getMaxZoom());
+                map.setMaxBounds(new L.LatLngBounds(southWest, northEast));
+ 
+                L.tileLayer('http://gu.pe/zepto/esp8266_tiles/{z}/{x}/{y}.png', {
+                        maxZoom: 5,
+                        attribution: '41j.com',
+                        id: 'example',
+                        continuousWorld: true
+                }).addTo(map);
+        </script>
+
+</body>
+</html>
